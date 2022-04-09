@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RespuestaMDB, Pelicula } from '../interfaces/interfaces';
 import { MoviesService } from '../services/movies.service';
 
 @Component({
@@ -8,12 +9,21 @@ import { MoviesService } from '../services/movies.service';
 })
 export class Tab1Page implements OnInit {
 
+  peliculasRecientes:Pelicula[] = [];
+  slideOpts = {
+    slidesPerView: 1,
+    // freeMode: true,
+    
+  };
   constructor(
     private movieService:MoviesService
   ) {}
 
   ngOnInit() {
-    this.movieService.getFeature().subscribe(console.log);
+    this.movieService.getFeature().subscribe(resp=>{
+      console.log(resp);
+      this.peliculasRecientes = resp.results;
+    });
 
   }
 
